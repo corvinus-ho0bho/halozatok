@@ -1,0 +1,40 @@
+﻿body {
+    background-color: #ffc7a0;
+}
+
+h1 {
+    text-align: center;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+dt {
+    color: blue;
+}
+
+dd {
+    font-style: italic;
+}
+
+ul {
+    list-style-type: square;
+}
+
+a {
+    font-weight: bold;
+}
+
+div {
+    margin: 15px;
+    padding: 25px;
+    border: 2px solid fuchsia;
+    border-radius: 25px;
+}
+
+li {
+    font-size: 1.2em;
+    letter-spacing: 2px;
+    font-family: "Monotype Corsiva";
+}
