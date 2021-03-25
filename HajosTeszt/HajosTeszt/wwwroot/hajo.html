@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-</head>
+    <script src="hetedik.js"></script>
+
 <style>
     html, body, head {
         height: 100%;
@@ -63,26 +64,33 @@
     .rossz {
         background-color: red;
     }
+    .kerdes:hover {
+        background-color: lightpink;
+        color: white;
+        cursor: pointer;
+    }
+
 </style>
+    </head>
 <body>
     <div id="külső">
         <div id="kérdés_szöveg">
-            Kérdés szövege
         </div>
 
         <div id="középső">
             <div id="válaszok">
-                <div id="válasz1" class="kerdes">Válasz 1</div>
-                <div id="válasz2" class="kerdes">Válasz 2</div>
-                <div id="válasz3" class="kerdes">Válasz 3</div>
+                <div id="válasz1" onclick="valaszElso()" class="kerdes">Válasz 1</div>
+                <div id="válasz2" onclick="valaszMasodik()" class="kerdes">Válasz 2</div>
+                <div id="válasz3" onclick="valaszHarmadik()" class="kerdes">Válasz 3</div>
+                <div id="helyes"></div>
             </div>
             <div id="kép">
                 <img id="kép1" src="https://szoft1.comeback.hu/hajo/teszt-0050.jpg" />
             </div>
         </div>
         <div id="vezérlő">
-            <div class="gomb kattintható">Vissza</div>
-            <div class="gomb kattintható">Előre</div>
+            <div id="Vissza" onclick="kattVissza()"  class="gomb kattintható">Vissza</div>
+            <div id="Elore" onclick="kattElore()" class="gomb kattintható">Előre</div>
         </div>
     </div>
 
