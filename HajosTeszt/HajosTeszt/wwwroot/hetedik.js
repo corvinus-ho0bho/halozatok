@@ -1,8 +1,41 @@
 ﻿var kerdesek;
-var k = 0;
+var k = 2;
 var helyes;
-window.onload = function (){ letoltes() }
+window.onload = function () { letoltes(k) }
 
+var letoltes = function (id) {
+        fetch(`/questions/${id}`)
+            .then(response => {
+                if (!response.ok) {
+                    console.error(`Hibás válasz: ${response.status}`)
+                }
+                else {
+                    return response.json()
+                }
+            })
+            .then(data => kerdesMegjelenites(data));
+    }    
+
+
+function kerdesMegjelenites(kerdes) {
+    console.log(kerdes);
+    document.getElementById("kérdés_szöveg").innerText = kerdes.questionText
+    document.getElementById("válasz1").innerText = kerdes.answer1
+    document.getElementById("válasz2").innerText = kerdes.answer2
+    document.getElementById("válasz3").innerText = kerdes.answer3
+    if (kerdes.image == null) {
+        document.getElementById("kép1").src = "none";
+    } else {
+        document.getElementById("kép1").src = "https://szoft1.comeback.hu/hajo/" + kerdes.image;
+    }
+    helyes = kerdes.correctAnswer;
+    document.getElementById("válasz1").style.color = 'black';
+    document.getElementById("válasz2").style.color = 'black';
+    document.getElementById("válasz3").style.color = 'black';
+
+   
+}
+/*
 var letoltes = function () {
     fetch('/questions.json')
         .then(response => response.json())
@@ -31,8 +64,28 @@ var kerdesMegjelenites = function (kerdes) {
     document.getElementById("válasz3").style.color = 'black';
     
 }
-    
+*/
+
+function kattVissza() {
+     if (k == 1) {
+            k = 859;
+            letoltes(k)
+        } else {
+         k--;
+         letoltes(k);
+        }
+}
 function kattElore() {
+    if (k == 859) {
+        k = 1;
+        letoltes(k)
+    } else {
+        k++;
+        letoltes(k);
+    }
+}
+    
+/*function kattElore() {
     if (k == 0) {
         k = 1;
         kerdesMegjelenites(k);  
@@ -66,7 +119,7 @@ function kattElore() {
         kerdesMegjelenites(k);
         return;
     }
-}
+}*/
 
 
 function valaszElso() {
