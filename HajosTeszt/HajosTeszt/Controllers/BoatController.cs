@@ -13,14 +13,14 @@ namespace HajosTeszt.Controllers
     public class BoatController : ControllerBase
     {
         [HttpGet]
-        /*[Route("questions/all")]
+        [Route("questions/all")]
         public ActionResult M1()
         {
             HajostesztContext context = new HajostesztContext();
             var kerdesek = from x in context.Questions select x.QuestionText;
 
             return new JsonResult(kerdesek);
-        }*/
+        }
         [Route("questions/{sorszam}")]
         public ActionResult M2(int sorszam)
         {
@@ -32,6 +32,15 @@ namespace HajosTeszt.Controllers
             if (kerdes == null) return BadRequest("Nincs ilyen sorszamu kerdes");
 
             return new JsonResult(kerdes);
+        }
+        [HttpGet]
+        [Route("questions/count")]
+        public int M4() 
+        {
+            HajostesztContext context = new HajostesztContext();
+            int kérdésekSzáma = context.Questions.Count();
+
+            return kérdésekSzáma;
         }
     }
 }
