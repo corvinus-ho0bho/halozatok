@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Beadandó</title>
+<style>
+    body {
+        background-color: rgb(0, 0, 0);
+        display:flex;
+        flex-direction: column;
+    }
+    #oszlop {
+        display: flex;
+        flex-direction: column; 
+    }
+    #gomb {
+        display: block;
+        color: rgb(255, 255, 255);
+        background-color: rgba(82, 0, 85,0.7);
+        text-align: center;
+        border-style: double;
+        border-color: rgb(255, 255, 255);
+        font-family: 'Times New Roman',Verdana;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    #gomb:hover {
+        background-color: rgba(251, 148, 255, 0.7);
+        color: rgb(0, 0, 0);
+        border-color: rgb(77, 0, 87);
+    }
+    #elso,#szoveg, #listazas,#urlap,#vegpont {
+        margin: auto;
+        display: block;
+        color: rgb(255, 255, 255);
+        background-color: rgba(82, 0, 85,0.7);
+        text-align: center;
+        font-family: 'Times New Roman',Verdana;
+        font-weight: bold;
+        text-decoration: none;
+        padding:20px;
+    }
+    #cim {
+        text-align: center;
+        background-color: rgba(82, 0, 85,0.4);
+        color: rgb(255, 255, 255);
+        font-size: 50px;
+        padding: 40px;
+        margin:auto;
+    }
+    li {
+        text-align:left;
+    }
+    #nagy {
+        background-color: rgba(251, 148, 255, 0.7);
+        width: fit-content();
+
+    }
+</style>
+
+</head>
+<body>
+    <div id="nagy">
+        <div id="cim">
+            <h1>
+            A Nagy Film Adatbázis</h1>
+        </div>
+        <br>
+        <div id="oszlop">
+            <div id="elso">
+                <form id="urlap">
+                    <label>
+                        Új film felvétele:
+                        <input id="szoveg" type="text" placeholder="Ide írd a film címét." />
+                    </label> <br>
+                    <button id="gomb" type="button"> Mentés </button>
+                </form>
+            </div>
+            <br />
+            <div id="listazas">
+                <h1>Az adatbázisban szereplő filmek:</h1>
+                <script>
+                    document.getElementById("gomb").addEventListener("click", () => {
+
+                        let data = {
+                            filmName: document.getElementById("szoveg").value
+                        }
+
+                        fetch("api/movies",
+                            {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(data)
+                            }
+                        ).then(x => {
+                            if (x.ok) {
+                                alert("Siker.");
+
+                            }
+                            else {
+                                alert("Nem sikeres.");
+                            }
+                        });
+                        window.location.reload();
+                    });
+
+                    document.addEventListener("DOMContentLoaded", () => {
+                        fetch("api/movies")
+                            .then(result => {
+                                if (!result.ok) {
+                                    console.error(`Hibás letöltés: ${result.status}`);
+                                    return null;
+                                } else {
+                                    return result.json();
+                                }
+                            })
+                            .then(data => {
+                                for (var i = 0; i < data.length; i++) {
+                                    document.createElement("li");
+                                    document.getElementById("listazas").innerHTML += data[i].filmName += ",<br>";
+                                }
+                            })
+                    });
+                </script>
+            </div>
+        </div>
+        <br />
+        <div id="vegpont">
+            <h1>Nem felhasznált API végpontok:</h1>
+            <ul>
+                <li> Végpont az adatbázis táblának a rekordjai számának a megjelenítésére.</li>
+                <li> Végpont az elsődleges kulcs alapján való lekérdezésre.</li>
+                <li> Végpont az adatbázis táblának a rekordjai törlésére..</li>
+            </ul>
+
+        </div>
+    </div>
+</body>
+</html>
